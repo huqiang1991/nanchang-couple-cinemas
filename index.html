@@ -35,7 +35,7 @@
         });
 
         // 导入GeoJSON数据（若本地文件，需确保路径正确；在线使用可替换为GitHub上的GeoJSON链接）
-        fetch('nanchang-couple-cinemas.geojson')
+        fetch('https://raw.githubusercontent.com/huqiang1991/nanchang-couple-cinemas/main/nanchang-couple-cinemas.geojson')
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {
@@ -59,4 +59,5 @@
             .catch(error => console.log('加载数据失败：', error));
     </script>
 </body>
+
 </html>
