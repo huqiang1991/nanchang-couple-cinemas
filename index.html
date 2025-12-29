@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>南昌情侣影院分布互动地图</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://webapi.amap.com/maps?v=2.0&key=023a0093651069794829441282269a0a" />
     <style>
         body { margin: 0; padding: 0; }
-        #map { height: 100vh; }
-        .leaflet-popup-content { width: 200px !important; }
+        #map { height: 100vh; width: 100vw; }
+        .amap-info-content { width: 200px !important; }
         .popup-title { font-weight: bold; color: #e74c3c; }
         .popup-info { font-size: 14px; line-height: 1.5; }
     </style>
@@ -16,48 +16,131 @@
 <body>
     <div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=023a0093651069794829441282269a0a"></script>
     <script>
-        // 初始化地图（中心为八一广场坐标）
-        const map = L.map('map').setView([28.685, 115.89], 12);
-
-        // 加载地图底图
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // 自定义爱心图标
-        const heartIcon = L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/128/1077/1077063.png',
-            iconSize: [30, 30],
-            iconAnchor: [15, 30],
-            popupAnchor: [0, -30]
+        // 初始化高德地图（中心为八一广场，国内可直接访问）
+        const map = new AMap.Map('map', {
+            zoom: 12,
+            center: [115.89, 28.685],
+            mapStyle: 'amap://styles/normal'
         });
 
-        // 导入GeoJSON数据（若本地文件，需确保路径正确；在线使用可替换为GitHub上的GeoJSON链接）
-        fetch('https://raw.githubusercontent.com/huqiang1991/nanchang-couple-cinemas/main/nanchang-couple-cinemas.geojson')
-            .then(response => response.json())
-            .then(data => {
-                L.geoJSON(data, {
-                    pointToLayer: (feature, latlng) => {
-                        return L.marker(latlng, { icon: heartIcon });
-                    },
-                    onEachFeature: (feature, layer) => {
-                        const props = feature.properties;
-                        layer.bindPopup(`
-                            <div class="popup-title">${props.name}</div>
-                            <div class="popup-info">
-                                区域：${props.area}<br>
-                                地址：${props.address}<br>
-                                情侣配置：${props.couple_config}<br>
-                                导航关键词：${props.nav_keyword}
-                            </div>
-                        `);
-                    }
-                }).addTo(map);
-            })
-            .catch(error => console.log('加载数据失败：', error));
+        // 自定义爱心图标（国内CDN资源）
+        const heartIcon = new AMap.Icon({
+            image: 'https://img.icons8.com/fluency/48/000000/heart.png',
+            imageSize: new AMap.Size(25, 25)
+        });
+
+        // 影院数据（直接嵌入）
+        const cinemas = [
+            {
+                name: "百花洲电影城",
+                area: "东湖区",
+                address: "中山路65号强威大厦四楼",
+                couple_config: "专属情侣厅（86座）",
+                nav_keyword: "百花洲电影城 强威大厦",
+                lnglat: [115.8965, 28.6802]
+            },
+            {
+                name: "时光影城（东湖意库店）",
+                area: "东湖区",
+                address: "青山南路118号东湖意库J栋三楼",
+                couple_config: "电动情侣座、情侣双人床厅",
+                nav_keyword: "时光影城 东湖意库J栋",
+                lnglat: [115.9032, 28.6968]
+            },
+            {
+                name: "漫威国际影城（樟树林店）",
+                area: "东湖区",
+                address: "佘山路66号樟树林生活公园9栋3楼",
+                couple_config: "部分影厅后排情侣座",
+                nav_keyword: "漫威国际影城 樟树林生活公园",
+                lnglat: [115.8876, 28.6951]
+            },
+            {
+                name: "银兴国际影城（南昌武商MALL店）",
+                area: "东湖区",
+                address: "八一广场27号武商MALL 8楼",
+                couple_config: "部分影厅后排情侣座",
+                nav_keyword: "银兴国际影城 南昌武商MALL",
+                lnglat: [115.8913, 28.6854]
+            },
+            {
+                name: "CGV影城（万象城IMAX店）",
+                area: "红谷滩区",
+                address: "红谷中大道1706号世茂广场3楼",
+                couple_config: "SWEETBOX情侣厅",
+                nav_keyword: "CGV影城 世茂广场",
+                lnglat: [115.8572, 28.6583]
+            },
+            {
+                name: "金逸影城南昌光美绿地店",
+                area: "红谷滩区",
+                address: "红谷中大道998号绿地缤纷城右里3F",
+                couple_config: "5号厅后排情侣沙发座",
+                nav_keyword: "金逸影城 绿地缤纷城右里",
+                lnglat: [115.8641, 28.6635]
+            },
+            {
+                name: "丁丁影城（红谷滩店）",
+                area: "红谷滩区",
+                address: "会展路熙梦里二楼",
+                couple_config: "6号激光床厅（情侣座）",
+                nav_keyword: "丁丁影城 熙梦里",
+                lnglat: [115.8503, 28.6702]
+            },
+            {
+                name: "越幕影城（经开店）",
+                area: "青山湖区",
+                address: "桂苑大道135号洪客隆英伦联邦16号楼5层",
+                couple_config: "部分影厅后排情侣座",
+                nav_keyword: "越幕影城 洪客隆英伦联邦",
+                lnglat: [115.8368, 28.7735]
+            },
+            {
+                name: "越幕影城（莲塘店）",
+                area: "南昌县",
+                address: "莲塘镇迎宾中大道2013号盛汇城市广场4楼",
+                couple_config: "各厅后排均为情侣座",
+                nav_keyword: "越幕影城 盛汇城市广场",
+                lnglat: [115.9017, 28.5642]
+            },
+            {
+                name: "橙天国际影城",
+                area: "新建区",
+                address: "长征西路308号新建中心商业广场4楼",
+                couple_config: "部分影厅后排情侣座",
+                nav_keyword: "橙天国际影城 新建中心商业广场",
+                lnglat: [115.8035, 28.6927]
+            }
+        ];
+
+        // 批量添加影院标注
+        cinemas.forEach(cinema => {
+            const marker = new AMap.Marker({
+                position: cinema.lnglat,
+                icon: heartIcon,
+                title: cinema.name
+            });
+            marker.setMap(map);
+
+            // 点击标注显示弹窗
+            marker.on('click', () => {
+                const infoWindow = new AMap.InfoWindow({
+                    content: `
+                        <div class="popup-title">${cinema.name}</div>
+                        <div class="popup-info">
+                            区域：${cinema.area}<br>
+                            地址：${cinema.address}<br>
+                            情侣配置：${cinema.couple_config}<br>
+                            导航关键词：${cinema.nav_keyword}
+                        </div>
+                    `,
+                    offset: new AMap.Pixel(0, -25)
+                });
+                infoWindow.open(map, cinema.lnglat);
+            });
+        });
     </script>
 </body>
-
 </html>
