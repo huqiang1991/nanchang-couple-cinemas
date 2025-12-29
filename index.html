@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>南昌情侣影院分布互动地图</title>
-    <link rel="stylesheet" href="https://webapi.amap.com/maps?v=2.0&key=023a0093651069794829441282269a0a" />
+    <script src="https://api.map.baidu.com/api?v=3.0&ak=E4805d16520de693a3fe707cdc962045"></script>
     <style>
         body { margin: 0; padding: 0; }
         #map { height: 100vh; width: 100vw; }
-        .amap-info-content { width: 200px !important; }
+        .info-window { width: 200px; }
         .popup-title { font-weight: bold; color: #e74c3c; }
         .popup-info { font-size: 14px; line-height: 1.5; }
     </style>
@@ -16,22 +16,20 @@
 <body>
     <div id="map"></div>
 
-    <script src="https://webapi.amap.com/maps?v=2.0&key=023a0093651069794829441282269a0a"></script>
     <script>
-        // 初始化高德地图（中心为八一广场，国内可直接访问）
-        const map = new AMap.Map('map', {
-            zoom: 12,
-            center: [115.89, 28.685],
-            mapStyle: 'amap://styles/normal'
-        });
+        // 初始化百度地图（中心为八一广场，国内无访问限制）
+        const map = new BMapGL.Map("map");
+        const point = new BMapGL.Point(115.89, 28.685);
+        map.centerAndZoom(point, 12);
+        map.enableScrollWheelZoom(true);
 
-        // 自定义爱心图标（国内CDN资源）
-        const heartIcon = new AMap.Icon({
-            image: 'https://img.icons8.com/fluency/48/000000/heart.png',
-            imageSize: new AMap.Size(25, 25)
-        });
+        // 自定义爱心图标
+        const heartIcon = new BMapGL.Icon(
+            "https://img.icons8.com/fluency/48/000000/heart.png",
+            new BMapGL.Size(25, 25)
+        );
 
-        // 影院数据（直接嵌入）
+        // 影院数据
         const cinemas = [
             {
                 name: "百花洲电影城",
@@ -115,30 +113,27 @@
             }
         ];
 
-        // 批量添加影院标注
+        // 批量添加标注
         cinemas.forEach(cinema => {
-            const marker = new AMap.Marker({
-                position: cinema.lnglat,
-                icon: heartIcon,
-                title: cinema.name
-            });
-            marker.setMap(map);
+            const point = new BMapGL.Point(cinema.lnglat[0], cinema.lnglat[1]);
+            const marker = new BMapGL.Marker(point, { icon: heartIcon });
+            map.addOverlay(marker);
 
-            // 点击标注显示弹窗
-            marker.on('click', () => {
-                const infoWindow = new AMap.InfoWindow({
-                    content: `
-                        <div class="popup-title">${cinema.name}</div>
-                        <div class="popup-info">
-                            区域：${cinema.area}<br>
-                            地址：${cinema.address}<br>
-                            情侣配置：${cinema.couple_config}<br>
-                            导航关键词：${cinema.nav_keyword}
-                        </div>
-                    `,
-                    offset: new AMap.Pixel(0, -25)
-                });
-                infoWindow.open(map, cinema.lnglat);
+            // 点击弹窗
+            const content = `
+                <div class="info-window">
+                    <div class="popup-title">${cinema.name}</div>
+                    <div class="popup-info">
+                        区域：${cinema.area}<br>
+                        地址：${cinema.address}<br>
+                        情侣配置：${cinema.couple_config}<br>
+                        导航关键词：${cinema.nav_keyword}
+                    </div>
+                </div>
+            `;
+            const infoWindow = new BMapGL.InfoWindow(content);
+            marker.addEventListener("click", () => {
+                map.openInfoWindow(infoWindow, point);
             });
         });
     </script>
