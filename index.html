@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南昌情侣影院分布互动地图</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { height: 100vh; }
+        .leaflet-popup-content { width: 200px !important; }
+        .popup-title { font-weight: bold; color: #e74c3c; }
+        .popup-info { font-size: 14px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // 初始化地图（中心为八一广场坐标）
+        const map = L.map('map').setView([28.685, 115.89], 12);
+
+        // 加载地图底图
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // 自定义爱心图标
+        const heartIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/128/1077/1077063.png',
+            iconSize: [30, 30],
+            iconAnchor: [15, 30],
+            popupAnchor: [0, -30]
+        });
+
+        // 导入GeoJSON数据（若本地文件，需确保路径正确；在线使用可替换为GitHub上的GeoJSON链接）
+        fetch('nanchang-couple-cinemas.geojson')
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    pointToLayer: (feature, latlng) => {
+                        return L.marker(latlng, { icon: heartIcon });
+                    },
+                    onEachFeature: (feature, layer) => {
+                        const props = feature.properties;
+                        layer.bindPopup(`
+                            <div class="popup-title">${props.name}</div>
+                            <div class="popup-info">
+                                区域：${props.area}<br>
+                                地址：${props.address}<br>
+                                情侣配置：${props.couple_config}<br>
+                                导航关键词：${props.nav_keyword}
+                            </div>
+                        `);
+                    }
+                }).addTo(map);
+            })
+            .catch(error => console.log('加载数据失败：', error));
+    </script>
+</body>
+</html>

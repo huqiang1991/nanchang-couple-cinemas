@@ -1,0 +1,145 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "百花洲电影城",
+        "area": "东湖区",
+        "address": "中山路65号强威大厦四楼",
+        "couple_config": "专属情侣厅（86座）",
+        "nav_keyword": "百花洲电影城 强威大厦"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8965, 28.6802]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "时光影城（东湖意库店）",
+        "area": "东湖区",
+        "address": "青山南路118号东湖意库J栋三楼",
+        "couple_config": "电动情侣座、情侣双人床厅",
+        "nav_keyword": "时光影城 东湖意库J栋"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.9032, 28.6968]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "漫威国际影城（樟树林店）",
+        "area": "东湖区",
+        "address": "佘山路66号樟树林生活公园9栋3楼",
+        "couple_config": "部分影厅后排情侣座",
+        "nav_keyword": "漫威国际影城 樟树林生活公园"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8876, 28.6951]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "银兴国际影城（南昌武商MALL店）",
+        "area": "东湖区",
+        "address": "八一广场27号武商MALL 8楼",
+        "couple_config": "部分影厅后排情侣座",
+        "nav_keyword": "银兴国际影城 南昌武商MALL"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8913, 28.6854]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "CGV影城（万象城IMAX店）",
+        "area": "红谷滩区",
+        "address": "红谷中大道1706号世茂广场3楼",
+        "couple_config": "SWEETBOX情侣厅",
+        "nav_keyword": "CGV影城 世茂广场"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8572, 28.6583]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "金逸影城南昌光美绿地店",
+        "area": "红谷滩区",
+        "address": "红谷中大道998号绿地缤纷城右里3F",
+        "couple_config": "5号厅后排情侣沙发座",
+        "nav_keyword": "金逸影城 绿地缤纷城右里"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8641, 28.6635]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "丁丁影城（红谷滩店）",
+        "area": "红谷滩区",
+        "address": "会展路熙梦里二楼",
+        "couple_config": "6号激光床厅（情侣座）",
+        "nav_keyword": "丁丁影城 熙梦里"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8503, 28.6702]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "越幕影城（经开店）",
+        "area": "青山湖区",
+        "address": "桂苑大道135号洪客隆英伦联邦16号楼5层",
+        "couple_config": "部分影厅后排情侣座",
+        "nav_keyword": "越幕影城 洪客隆英伦联邦"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8368, 28.7735]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "越幕影城（莲塘店）",
+        "area": "南昌县",
+        "address": "莲塘镇迎宾中大道2013号盛汇城市广场4楼",
+        "couple_config": "各厅后排均为情侣座",
+        "nav_keyword": "越幕影城 盛汇城市广场"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.9017, 28.5642]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "橙天国际影城",
+        "area": "新建区",
+        "address": "长征西路308号新建中心商业广场4楼",
+        "couple_config": "部分影厅后排情侣座",
+        "nav_keyword": "橙天国际影城 新建中心商业广场"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8035, 28.6927]
+      }
+    }
+  ]
+}
